@@ -22,32 +22,34 @@ function init(){
 		posY += y;
 
 
-		posX = map(x, -180, 180, 0, window.innerWidth, true);
-		posY = map(y, -90, 90, 0, window.innerHeight, true);
-
-		$("#alpha").html(z);
-		$("#beta").html(x);
-		$("#gamma").html(y);
-
+		posX = map(x, 180, -180, 0, window.innerWidth, true);
+		posY = map(y, 90, -90, 0, window.innerHeight, true);
 	}
 }
 
 
-function setup(){
-	var cnv = createCanvas(window.innerWidth, window.innerHeight);
-	cnv.parent("myCanvas");
+let value = 0;
 
-	posX = width/2;
-	posY = height/2;
+function setup(){
+	createCanvas(window.innerWidth, window.innerHeight, WEBGL);
+	normalMaterial();
+	textSize(width/3);
+	textAlign(CENTER, CENTER);
 }
 
 function draw(){
-	background(255);
-	fill(220, 55, 135);
-	stroke(0);
-	ellipse(posX, posY, 100);
+	text('Groovy', 0, 0);
 
-	fill(0);
-	stroke(220, 55, 135);
-	ellipse(z, x, 100);
+	background(value, value, value);
+	colorMode(HSB);
+	rotateX(frameCount * 0.03);
+	rotateY(frameCount * 0.01);
+	box(posX/2, posY/2, 100);
 }
+
+function deviceShaken(){
+	value = value + 5;
+	if(value > 255){
+		value = 0;
+	}
+}  
